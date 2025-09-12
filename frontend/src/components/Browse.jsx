@@ -111,7 +111,7 @@ const Browse = () => {
   }
 
   return (
-    <div className="bg-black min-h-screen">
+  <div className="bg-black min-h-screen flex flex-col justify-between">
       <Navbar />
       {heroMovie && <Hero movie={heroMovie} onPlayTrailer={handlePlayTrailer} />}
       
@@ -168,6 +168,10 @@ const Browse = () => {
       {showTrailer && selectedMovie && (
         <TrailerModal movie={selectedMovie} onClose={closeTrailer} />
       )}
+      {/* Footer */}
+      <footer className="relative z-10 w-full text-center py-6 bg-black bg-opacity-80 text-gray-400 text-sm mt-auto">
+        © 2025 Swift Design. All rights reserved.
+      </footer>
     </div>
   );
 };

@@ -13,7 +13,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+  <div className="min-h-screen bg-black relative overflow-hidden flex flex-col justify-between">
       {/* Background Movie Grid */}
       <div className="absolute inset-0 opacity-30">
         <div className="grid grid-cols-8 gap-2 h-full p-4 transform rotate-12 scale-110">
@@ -79,6 +79,10 @@ const Home = () => {
           </Button>
         </div>
       </div>
+      {/* Footer */}
+      <footer className="relative z-10 w-full text-center py-6 bg-black bg-opacity-80 text-gray-400 text-sm mt-auto">
+        © 2025 Swift Design. All rights reserved.
+      </footer>
     </div>
   );
 };
