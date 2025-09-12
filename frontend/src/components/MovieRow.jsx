@@ -17,6 +17,10 @@ const MovieRow = ({ title, movies, onPlayTrailer }) => {
     }
   };
 
+  if (!movies || movies.length === 0) {
+    return null; // Don't render empty rows
+  }
+
   return (
     <div className="px-6 md:px-16 group">
       <h2 className="text-white text-xl md:text-2xl font-semibold mb-4">
@@ -38,7 +42,7 @@ const MovieRow = ({ title, movies, onPlayTrailer }) => {
         >
           {movies.map((movie) => (
             <div
-              key={movie.id}
+              key={`${movie.id}-${movie.media_type}`}
               className="relative min-w-[200px] md:min-w-[280px] cursor-pointer transform transition-all duration-300 hover:scale-110 hover:z-20"
               onMouseEnter={() => setHoveredMovie(movie.id)}
               onMouseLeave={() => setHoveredMovie(null)}
@@ -88,6 +92,12 @@ const MovieRow = ({ title, movies, onPlayTrailer }) => {
                     <span>{movie.year}</span>
                     <span className="mx-1">•</span>
                     <span>{movie.duration}</span>
+                    {movie.media_type && (
+                      <>
+                        <span className="mx-1">•</span>
+                        <span className="capitalize">{movie.media_type}</span>
+                      </>
+                    )}
                   </div>
                 </div>
               )}

@@ -11,7 +11,7 @@ const Hero = ({ movie, onPlayTrailer }) => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${movie.backdropImage})`,
+          backgroundImage: `url(${movie.backdrop_image || movie.backdropImage})`,
         }}
       >
         {/* Dark Overlay */}
@@ -24,9 +24,25 @@ const Hero = ({ movie, onPlayTrailer }) => {
         <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 leading-tight">
           {movie.title}
         </h1>
-        <p className="text-white text-lg md:text-xl mb-6 leading-relaxed">
+        <p className="text-white text-lg md:text-xl mb-6 leading-relaxed line-clamp-3">
           {movie.description}
         </p>
+        
+        {/* Movie Info */}
+        <div className="flex items-center space-x-4 mb-6 text-white">
+          <span className="bg-red-600 text-white px-2 py-1 rounded text-sm">
+            {movie.rating}
+          </span>
+          <span>{movie.year}</span>
+          <span>{movie.duration}</span>
+          {movie.media_type && (
+            <>
+              <span>•</span>
+              <span className="capitalize">{movie.media_type}</span>
+            </>
+          )}
+        </div>
+        
         <div className="flex items-center space-x-4">
           <Button 
             onClick={() => onPlayTrailer(movie)}
