@@ -3,11 +3,17 @@ import os
 import logging
 from typing import List, Dict, Optional, Union
 from models.movie import Movie
+from dotenv import load_dotenv
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
 class TMDBService:
     def __init__(self):
+        # Load environment variables
+        ROOT_DIR = Path(__file__).parent.parent
+        load_dotenv(ROOT_DIR / '.env')
+        
         self.api_keys = [
             os.environ.get('TMDB_API_KEY'),
             os.environ.get('TMDB_API_KEY_2')
