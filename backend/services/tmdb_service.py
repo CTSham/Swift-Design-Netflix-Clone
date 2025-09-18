@@ -2,7 +2,7 @@ import requests
 import os
 import logging
 from typing import List, Dict, Optional, Union
-from models.movie import Movie
+from ..models.movie import Movie
 from dotenv import load_dotenv
 from pathlib import Path
 

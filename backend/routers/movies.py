@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
 from typing import List, Optional
-from services.tmdb_service import TMDBService
-from models.movie import Movie, MovieResponse, TrailerResponse
+from ..services.tmdb_service import TMDBService
+from ..models.movie import Movie, MovieResponse, TrailerResponse
 import logging
 
 logger = logging.getLogger(__name__)
