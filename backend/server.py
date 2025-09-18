@@ -59,13 +59,29 @@ api_router.include_router(movies_router)
 # Include the router in the main app
 app.include_router(api_router)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# CORS configuration
+cors_origins = os.getenv("CORS_ORIGINS", "*")
+if cors_origins == "*":
+    # If wildcard, don't allow credentials per CORS spec
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    origins = [o.strip() for o in cors_origins.split(",") if o.strip()]
+    # Ensure local dev addresses present
+    defaults = {"http://localhost:3000", "http://localhost:3001", "http://127.0.0.1:3000", "http://127.0.0.1:3001", "http://localhost:5000"}
+    origin_set = set(origins) | defaults
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=list(origin_set),
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 # Configure logging
 logging.basicConfig(

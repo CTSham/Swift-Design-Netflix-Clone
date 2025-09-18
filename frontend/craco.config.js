@@ -7,6 +7,17 @@ const config = {
 };
 
 module.exports = {
+  devServer: (devServerConfig) => {
+    const target = process.env.REACT_APP_BACKEND_URL || 'https://clipflix-135.preview.emergentagent.com';
+    devServerConfig.proxy = {
+      '/api': {
+        target,
+        changeOrigin: true,
+        secure: false,
+      },
+    };
+    return devServerConfig;
+  },
   webpack: {
     alias: {
       '@': path.resolve(__dirname, 'src'),

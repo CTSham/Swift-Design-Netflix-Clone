@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
 const API = `${BACKEND_URL}/api`;
 
 // Create axios instance with default config
@@ -12,7 +12,7 @@ const apiClient = axios.create({
 // Request interceptor for logging
 apiClient.interceptors.request.use(
   (config) => {
-    console.log(`Making request to: ${config.method?.toUpperCase()} ${config.url}`);
+    console.log(`[api] baseURL=${apiClient.defaults.baseURL} -> ${config.method?.toUpperCase()} ${config.url}`);
     return config;
   },
   (error) => {
@@ -36,7 +36,7 @@ export const movieService = {
   // Get trending movies
   getTrending: async (page = 1) => {
     try {
-      const response = await apiClient.get(`/movies/trending?page=${page}`);
+      const response = await apiClient.get(`movies/trending?page=${page}`);
       return response.data.data || [];
     } catch (error) {
       console.error('Error fetching trending movies:', error);
@@ -47,7 +47,7 @@ export const movieService = {
   // Get popular movies
   getPopular: async (page = 1) => {
     try {
-      const response = await apiClient.get(`/movies/popular?page=${page}`);
+      const response = await apiClient.get(`movies/popular?page=${page}`);
       return response.data.data || [];
     } catch (error) {
       console.error('Error fetching popular movies:', error);
@@ -58,7 +58,7 @@ export const movieService = {
   // Get movies by category
   getByCategory: async (category, page = 1) => {
     try {
-      const response = await apiClient.get(`/movies/category/${category}?page=${page}`);
+      const response = await apiClient.get(`movies/category/${category}?page=${page}`);
       return response.data.data || [];
     } catch (error) {
       console.error(`Error fetching ${category} movies:`, error);
@@ -69,7 +69,7 @@ export const movieService = {
   // Search movies
   search: async (query, page = 1) => {
     try {
-      const response = await apiClient.get(`/movies/search?q=${encodeURIComponent(query)}&page=${page}`);
+      const response = await apiClient.get(`movies/search?q=${encodeURIComponent(query)}&page=${page}`);
       return response.data.data || [];
     } catch (error) {
       console.error('Error searching movies:', error);
@@ -80,7 +80,7 @@ export const movieService = {
   // Get movie trailer
   getTrailer: async (movieId, mediaType = 'movie') => {
     try {
-      const response = await apiClient.get(`/movies/${movieId}/trailer?media_type=${mediaType}`);
+      const response = await apiClient.get(`movies/${movieId}/trailer?media_type=${mediaType}`);
       return response.data.trailer_url || null;
     } catch (error) {
       console.error('Error fetching trailer:', error);
@@ -91,7 +91,7 @@ export const movieService = {
   // Get all Netflix-style categories at once
   getNetflixStyleData: async () => {
     try {
-      const response = await apiClient.get('/movies/netflix-style');
+      const response = await apiClient.get('movies/netflix-style');
       return response.data.categories || {};
     } catch (error) {
       console.error('Error fetching Netflix-style data:', error);
