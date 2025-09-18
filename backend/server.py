@@ -11,7 +11,7 @@ import uuid
 from datetime import datetime
 
 # Import movie router
-from routers.movies import router as movies_router
+from .routers.movies import router as movies_router
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
